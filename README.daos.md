@@ -15,7 +15,7 @@ daos cont list candle_aesp_CNDA
 
 ### Mounting the container on the filesystem
 ```
-# mkdir -p $HOME/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix
+mkdir -p $HOME/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix
 dfuse --pool=candle_aesp_CNDA --cont=uno_posix -m $HOME/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix
 ```
 
