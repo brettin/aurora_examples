@@ -72,6 +72,4 @@ time dd if=/dev/zero of=./filename.10000 bs=1M count=10000
 0.00user 4.09system 0:04.36elapsed 93%CPU (0avgtext+0avgdata 3336maxresident)k
 ```
 
-![image](https://github.com/brettin/aurora_examples/assets/991769/93959f7d-81ce-4f33-ba3c-7d25f7bbe27f)
-
 
