@@ -1,5 +1,31 @@
+### Setting up a Daos Container
+
 ```
-brettin@x4219c0s5b0n0:~/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix> 
+module use /soft/modulefiles
+module load daos/base
+
+daos pool query candle_aesp_CNDA
+env|grep DRPC
+ps -ef|grep daos|grep -v grep
+
+daos cont list candle_aesp_CNDA
+# daos cont create --type PYTHON candle_aesp_CNDA uno
+# daos cont create --type POSIX candle_aesp_CNDA uno_posix
+```
+
+### Mounting the container on the filesystem
+```
+# mkdir -p $HOME/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix
+dfuse --pool=candle_aesp_CNDA --cont=uno_posix -m $HOME/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix
+```
+
+
+### Running tests writing to the mounted daos container, the underlying filesystem, and /dev/shm
+```
+# Run the text below in each of these locations
+cd ~/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/uno_posix
+cd ~/CSC249ADOA01_CNDA/brettin/
+cd /dev/shm
 ```
 
 ```
