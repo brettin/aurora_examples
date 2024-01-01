@@ -1,5 +1,21 @@
 #!/bin/bash
 
+if [[ -v MPI_LOCALRANKID ]]; then
+  _MPI_RANKID=$MPI_LOCALRANKID
+elif [[ -v PALS_LOCAL_RANKID ]]; then
+  _MPI_RANKID=$PALS_LOCAL_RANKID
+else
+  echo "could not get RANK"
+  exit
+fi
+
+num_gpu=$(/usr/bin/udevadm info /sys/module/i915/drivers/pci:i915/* |& grep -v Unknown | grep -c "P: /devices")
+num_tile=2
+gpu_id=$(((_MPI_RANKID / num_tile) % num_gpu))
+tile_id=$((_MPI_RANKID % num_tile))
+ZE_AFFINITY_MASK=$gpu_id.$tile_id
+
+
 echo "$PMIX_RANK PMIX_RANK, \
 $PALS_RANKID PALS_RANKID, \
 $PALS_LOCAL_RANKID PALS_LOCAL_RANKID, \
