@@ -102,6 +102,13 @@ time dd if=/dev/zero of=./filename.10000 bs=1M count=10000
 
 #### Running on a dfuse mounted daos type posix container
 
+```
+0.00user 0.00system 0:00.01elapsed 58%CPU (0avgtext+0avgdata 3348maxresident)k
+0.00user 0.05system 0:00.06elapsed 93%CPU (0avgtext+0avgdata 3364maxresident)k
+0.00user 0.52system 0:00.52elapsed 99%CPU (0avgtext+0avgdata 3236maxresident)k
+0.01user 5.25system 0:05.27elapsed 99%CPU (0avgtext+0avgdata 3364maxresident)k
+```
+
 #---
 
 time dd if=/dev/zero of=./filename.10 bs=1M count=10
