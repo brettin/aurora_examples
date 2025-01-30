@@ -1,52 +1,53 @@
+Setting up the environment
+
+Modify the env_daos.sh to contain the pool namd and the container name. Then
+
+On both login and compute hosts, 
+
+	source env_daos.sh
+
+
+Creating a container
+
+	daos container create --type POSIX $DAOS_POOL $DAOS_CONT --properties rd_fac:1
+	daos container list $DAOS_POOL
+	
+
+Destroying a container
+
+	daos container destroy --force $DAOS_POOL $DAOS_CONT
+
+
 Here is the set of commands that will mount your container
 on all nodes.
 
 ```
+# qsub -l select=2 -l walltime=01:00:00 -A Aurora_deployment -k doe -ldaos=daos_user -l filesystems=flare:daos_user -q lustre_scaling -I
+qsub -l select=2 -l walltime=30:00 -A candle_aesp_CNDA -q debug -ldaos=daos_user -l filesystems=flare:daos_user -I
+
 # change this:
 cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
 
 source env_daos.sh 
-launch-dfuse.sh ${DAOS_POOL_NAME}:${DAOS_CONT_NAME}
-mpiexec --no-vni -n 400 -ppn 1 ./write_to_mount.sh
-clean-dfuse.sh  ${DAOS_POOL_NAME}:${DAOS_CONT_NAME}
-mpiexec -n2 -ppn 1 ls -l /tmp/$DAOS_POOL/$DAOS_CONT
-```
 
-These commands have been wrapped in the 
-
-	mount_daos_compute.sh <num nodes>
-	mount_daos_login.sh
-	umount_daos_compute.sh <num nodes>
-	umount_daos_login.sh
-	write_to_mount.sh
-
-
-
-
-
-##  Environment
-
-### On both login and compute hosts, and set in env_daos.sh
+mount_daos_compute.sh <num nodes>
+write_to_mount.sh
+umount_daos_compute.sh <num nodes>
 
 ```
-module use /soft/modulefiles
-module load daos/base
-# change pool and cont values. fix namespace problem
-DAOS_POOL=candle_aesp_CNDA
-DAOS_CONT=brettin_posix
-DAOS_POOL_NAME=candle_aesp_CNDA
-DAOS_CONT=NAMEbrettin_posix
-```
+
+
+
+
+
+
 
 
 ### list existing containers in DAOS_POOL
 
 	daos container list $DAOS_POOL
 
-### create a new container
 
-	daos container create --type POSIX $DAOS_POOL $DAOS_CONT --properties rd_fac:1
-	daos container list $DAOS_POOL
 
 # 2. mount on login node
 
@@ -60,8 +61,6 @@ for n in $(seq 1 4) ; do
 done
 
 ### On compute host
-qsub -l select=2 -l walltime=30:00 -A candle_aesp_CNDA -q debug -ldaos=daos_user -l filesystems=flare:daos_user -I
-# qsub -l select=2 -l walltime=01:00:00 -A Aurora_deployment -k doe -ldaos=daos_user -l filesystems=flare:daos_user -q lustre_scaling -I
 
 module use /soft/modulefiles
 module load daos/base
