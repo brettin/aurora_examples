@@ -12,8 +12,19 @@ clean-dfuse.sh  ${DAOS_POOL_NAME}:${DAOS_CONT_NAME}
 mpiexec -n2 -ppn 1 ls -l /tmp/$DAOS_POOL/$DAOS_CONT
 ```
 
+These commands have been wrapped in the 
 
-##  VARIOUS COMMANDS
+	mount_daos_compute.sh <num nodes>
+	mount_daos_login.sh
+	umount_daos_compute.sh <num nodes>
+	umount_daos_login.sh
+	write_to_mount.sh
+
+
+
+
+
+##  Environment
 
 ### On both login and compute hosts, and set in env_daos.sh
 
@@ -38,8 +49,7 @@ DAOS_CONT=NAMEbrettin_posix
 	daos container list $DAOS_POOL
 
 # 2. mount on login node
-mkdir -p /lus/flare/projects/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/$DAOS_CONT
-start-dfuse.sh -m /lus/flare/projects/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/$DAOS_CONT --pool $DAOS_POOL --cont $DAOS_CONT
+
 
 # 3. put stuff in the container
 for n in $(seq 1 4) ; do
