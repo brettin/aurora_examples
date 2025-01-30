@@ -20,9 +20,11 @@ mpiexec -n2 -ppn 1 ls -l /tmp/$DAOS_POOL/$DAOS_CONT
 ```
 module use /soft/modulefiles
 module load daos/base
-# change this
+# change pool and cont values. fix namespace problem
 DAOS_POOL=candle_aesp_CNDA
 DAOS_CONT=brettin_posix
+DAOS_POOL_NAME=candle_aesp_CNDA
+DAOS_CONT=NAMEbrettin_posix
 ```
 
 
