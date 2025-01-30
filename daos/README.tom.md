@@ -1,4 +1,4 @@
-### Setting up the environment
+#### Setting up the environment
 
 Modify the env_daos.sh to contain the pool namd and the container name. Then
 
@@ -7,19 +7,19 @@ On both login and compute hosts,
 	source env_daos.sh
 
 
-### Creating a container
+#### Creating a container
 
 	daos container create --type POSIX $DAOS_POOL $DAOS_CONT --properties rd_fac:1
 	daos container list $DAOS_POOL
 	
 
-### Destroying a container
+#### Destroying a container
 
 	daos container destroy --force $DAOS_POOL $DAOS_CONT
 
 
 
-### Running an interactive job
+#### Running an interactive job
 
 Here is the set of commands that will mount your container
 on all nodes.
@@ -57,75 +57,5 @@ du -sh /tmp/$DAOS_POOL/$DAOS_CONT
 umount_daos_compute.sh 2
 ```
 
-
-
-
-
-
-
-
-
-### list existing containers in DAOS_POOL
-
-	daos container list $DAOS_POOL
-
-
-
-# 2. mount on login node
-
-
-# 3. put stuff in the container
-for n in $(seq 1 4) ; do
-        COUNT=$((10**$n)) ;
-        CMD="time dd if=/dev/zero of=./$(hostname).filename.$COUNT bs=1M count=$COUNT" ;
-        echo $CMD ;
-        $CMD ;
-done
-
-### On compute host
-
-module use /soft/modulefiles
-module load daos/base
-
-DAOS_POOL=candle_aesp_CNDA
-DAOS_CONT=brettin_posix
-
-
-# 1. mount on compute nodes
-ls /tmp/${DAOS_POOL}/${DAOS_CONT}
-mkdir -p /tmp/${DAOS_POOL}/${DAOS_CONT}
-start-dfuse.sh -m /tmp/${DAOS_POOL}/${DAOS_CONT} --pool ${DAOS_POOL} --cont ${DAOS_CONT}
-
-# launched using pdsh on all compute nodes mounted at: /tmp/<pool>/<container>
-launch-dfuse.sh ${DAOS_POOL_NAME}:${DAOS_CONT_NAME} 
-
-# To confirm if its mounted
-mount | grep dfuse
-
-ls /tmp/${DAOS_POOL}/${DAOS_CONT}/
-
-clean-dfuse.sh  ${DAOS_POOL_NAME}:${DAOS_CONT_NAME} # To unmount on all nodes
-
-
-
-
-# 2. put stuff in the container
-cd /tmp/${DAOS_POOL}/${DAOS_CONT}
-for n in $(seq 1 4) ; do
-	COUNT=$((10**$n)) ;
-	CMD="time dd if=/dev/zero of=./$(hostname).filename.$COUNT bs=1M count=$COUNT" ;
-	echo $CMD ;
-	$CMD ;
-done
-
-# to unmount on compute nodes
-cd
-fusermount3 -u /tmp/candle_aesp_CNDA/brettin_posix/
-
-# to unmount on login host
-cd
-fusermount3 -u /lus/flare/projects/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/$DAOS_CONT
-
-# destroy (after unmounting)
-daos container destroy --force $DAOS_POOL $DAOS_CONT
+# Getting results back on lustre filesystem
 
