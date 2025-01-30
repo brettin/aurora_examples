@@ -1,4 +1,4 @@
-Setting up the environment
+### Setting up the environment
 
 Modify the env_daos.sh to contain the pool namd and the container name. Then
 
@@ -7,16 +7,19 @@ On both login and compute hosts,
 	source env_daos.sh
 
 
-Creating a container
+### Creating a container
 
 	daos container create --type POSIX $DAOS_POOL $DAOS_CONT --properties rd_fac:1
 	daos container list $DAOS_POOL
 	
 
-Destroying a container
+### Destroying a container
 
 	daos container destroy --force $DAOS_POOL $DAOS_CONT
 
+
+
+### Running an interactive job
 
 Here is the set of commands that will mount your container
 on all nodes.
@@ -24,17 +27,26 @@ on all nodes.
 ```
 # qsub -l select=2 -l walltime=01:00:00 -A Aurora_deployment -k doe -ldaos=daos_user -l filesystems=flare:daos_user -q lustre_scaling -I
 qsub -l select=2 -l walltime=30:00 -A candle_aesp_CNDA -q debug -ldaos=daos_user -l filesystems=flare:daos_user -I
-
-# change this:
-cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
-
-source env_daos.sh 
-
-mount_daos_compute.sh <num nodes>
-write_to_mount.sh
-umount_daos_compute.sh <num nodes>
+```
 
 ```
+#change this:
+cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
+```
+
+```
+source env_daos.sh 
+```
+```
+mount_daos_compute.sh <num nodes>
+```
+```
+write_to_mount.sh
+```
+```
+umount_daos_compute.sh <num nodes>
+```
+
 
 
 
