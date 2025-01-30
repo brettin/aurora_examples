@@ -1,7 +1,7 @@
 Here is the set of commands that will mount your container
 on all nodes.
 
-'''
+```
 # change this:
 cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
 
@@ -10,28 +10,30 @@ launch-dfuse.sh ${DAOS_POOL_NAME}:${DAOS_CONT_NAME}
 mpiexec --no-vni -n 400 -ppn 1 ./write_to_mount.sh
 clean-dfuse.sh  ${DAOS_POOL_NAME}:${DAOS_CONT_NAME}
 mpiexec -n2 -ppn 1 ls -l /tmp/$DAOS_POOL/$DAOS_CONT
-'''
+```
 
 
 ##  VARIOUS COMMANDS
 
 ### On both login and compute hosts, and set in env_daos.sh
 
-'''
+```
 module use /soft/modulefiles
 module load daos/base
 # change this
 DAOS_POOL=candle_aesp_CNDA
 DAOS_CONT=brettin_posix
-'''
+```
 
 
 ### list existing containers in DAOS_POOL
-daos container list $DAOS_POOL
+
+	daos container list $DAOS_POOL
 
 ### create a new container
-daos container create --type POSIX $DAOS_POOL $DAOS_CONT --properties rd_fac:1
-daos container list $DAOS_POOL
+
+	daos container create --type POSIX $DAOS_POOL $DAOS_CONT --properties rd_fac:1
+	daos container list $DAOS_POOL
 
 # 2. mount on login node
 mkdir -p /lus/flare/projects/CSC249ADOA01_CNDA/brettin/CSC249ADOA01_CNDA/$DAOS_CONT
