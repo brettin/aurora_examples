@@ -1,6 +1,6 @@
 #### Setting up the environment
 
-Modify the env_daos.sh to contain the pool namd and the container name. Then
+Modify the ```env_daos.sh``` file to contain the pool namd and the container name of the container you want to use and/or create. Then
 
 On both login and compute hosts, 
 
@@ -21,8 +21,7 @@ On both login and compute hosts,
 
 #### Running an interactive job
 
-Here is the set of commands that will mount your container
-on all nodes.
+Here is the set of commands that will mount your container on all nodes.
 
 ```
 # qsub -l select=2 -l walltime=01:00:00 -A Aurora_deployment -k doe -ldaos=daos_user -l filesystems=flare:daos_user -q lustre_scaling -I
@@ -30,7 +29,7 @@ qsub -l select=2 -l walltime=30:00 -A candle_aesp_CNDA -q debug -ldaos=daos_user
 ```
 
 ```
-#change this:
+# change this to your aurora_examples/daos dir is:
 cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
 ```
 
