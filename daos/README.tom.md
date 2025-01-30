@@ -38,13 +38,23 @@ cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
 source env_daos.sh 
 ```
 ```
-mount_daos_compute.sh <num nodes>
+# mount_daos_compute.sh <num nodes>
+mount_daos_compute.sh 2
 ```
 ```
-write_to_mount.sh
+# time mpiexec --no-vni -n <num nodes> -ppn 1 ./write_to_mount.sh
+time mpiexec --no-vni -n 2 -ppn 1 ./write_to_mount.sh
+
 ```
 ```
-umount_daos_compute.sh <num nodes>
+# verify with
+ls /tmp/$DAOS_POOL/$DAOS_CONT | wc
+du -sh /tmp/$DAOS_POOL/$DAOS_CONT
+```
+
+```
+# umount_daos_compute.sh <num nodes>
+umount_daos_compute.sh 2
 ```
 
 
