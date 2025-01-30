@@ -52,5 +52,16 @@ du -sh /tmp/$DAOS_POOL/$DAOS_CONT
 umount_daos_compute.sh 2
 ```
 
-# Getting results back on lustre filesystem
+#### Getting results back on lustre filesystem using login host
+```
+# change this to your aurora_examples/daos dir is:
+cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
+```
+```
+source env_daos.sh
+mount_daos_login.sh
+cp /tmp/$POOL/$CONT/*.log $HOME/
+umount_daos_login.sh 
+```
+
 
