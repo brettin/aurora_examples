@@ -60,7 +60,7 @@ cd CSC249ADOA01_CNDA/brettin/aurora_examples/daos/
 ```
 source env_daos.sh
 mount_daos_login.sh
-ls /tmp/$DAOS_POOL/$DAOS_CONT/*.log $HOME/
+ls /tmp/$DAOS_POOL/$DAOS_CONT/*.log
 cp /tmp/$DAOS_POOL/$DAOS_CONT/*.log $HOME/
 umount_daos_login.sh 
 ```
